@@ -1,11 +1,11 @@
 import { useState } from 'react';
-
 import PropTypes from 'prop-types';
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem';
+import Loader from 'react-loader-spinner';
+import Button from 'components/Button';
 import Notification from '../Notification';
-import Loader from  '../Loader'
-
-import styles from './ImageGallery.module.css';
+import Modal from 'components/Modal';
+import styles from './ImageGallery.module.scss';
 
 const ImageGallery = ({
   images,
@@ -23,12 +23,11 @@ const ImageGallery = ({
     setImageURL(url);
     setImageAlt(alt);
   };
-
   const handleCloseModal = () => {
     setShowModal(false);
     setImageURL('');
     setImageAlt('');
-
+  };
   return (
     <>
       {totalImages > 0 ? (
@@ -44,7 +43,7 @@ const ImageGallery = ({
               />
             ))}
           </ul>
-          <Loader />
+          <Loader visible={isLoading} />
           <Button
             type="button"
             title="Load more"
@@ -63,34 +62,17 @@ const ImageGallery = ({
         />
       )}
     </>
-    
   );
 };
 
-  // imgArray.length > 0 && (
-  //     <ul className={styles.ImageGallery}>
-  //       {imgArray.map(({ id, webformatURL, largeImageURL, tags }) => (
-  //         <ImageGalleryItem
-  //           key={id}
-  //           webformatURL={webformatURL}
-  //           tags={tags}
-  //           onClickImage={() => onClickImage(largeImageURL)}
-  //         />
-  //       ))}
-  //     </ul>
-  //   )
-  
-  
 ImageGallery.propTypes = {
-  imgArray: PropTypes.arrayOf(
+  images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      webformatURL: PropTypes.string.isRequired,
-      largeImageURL: PropTypes.string.isRequired,
-      tags: PropTypes.string.isRequired,
     }),
-  ),
-  onClickImage: PropTypes.func.isRequired,
+  ).isRequired,
+  totalImages: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default ImageGallery;

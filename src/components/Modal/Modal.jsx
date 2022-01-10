@@ -1,47 +1,48 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import styles from './Modal.module.css';
 
-
 const modalRoot = document.querySelector('#modal-root');
 
-export  const  Modal = ({largeImageURL, toggleModal}) => {
-  
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
+export const Modal = ({ alt, srcModal, onCloseModal }) => {
+  useEffect(() => {
+    // console.log('Modal componentDidMount');
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      // console.log('Modal componentWillUnmount');
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
 
   const handleKeyDown = e => {
     if (e.code === 'Escape') {
-      this.props.toggleModal();
+      onCloseModal();
     }
   };
 
-  closeByBackdrop = ({ target, currentTarget }) => {
-    if (target === currentTarget) this.props.toggleModal();
+  const closeByBackdrop = e => {
+    if (e.currentTarget === e.target) {
+      onCloseModal();
+    }
   };
 
-  render() {
-    const { largeImageURL } = this.props;
+  return createPortal(
+    <div className={styles.Overlay} onClick={closeByBackdrop}>
+      <div className={styles.Modal}>
+        <img src={srcModal} alt={alt} />
+      </div>
+    </div>,
+    modalRoot,
+  );
+};
 
-    return createPortal(
-      <div className={styles.Overlay} onClick={this.closeByBackdrop}>
-        <div className={styles.Modal}>
-          <img className={styles.modalPic} src={largeImageURL} alt="" />
-        </div>
-      </div>,
-      modalRoot,
-    );
-  }
-}
-
+Modal.defaultProps = {
+  onCloseModal: () => {},
+};
 Modal.propTypes = {
-  largeImageURL: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  alt: PropTypes.string.isRequired,
+  srcModal: PropTypes.string.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
 };
