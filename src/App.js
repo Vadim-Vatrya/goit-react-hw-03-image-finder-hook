@@ -1,7 +1,7 @@
 // import { Component } from 'react';
 import { useState, useEffect } from 'react';
 
-import imagesApi from './services/imagesApi';
+import imagesApi from './services/imageApi';
 import SearchBar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import Loader from './components/Loader';

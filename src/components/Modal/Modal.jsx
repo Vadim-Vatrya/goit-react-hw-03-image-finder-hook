@@ -6,7 +6,7 @@ import styles from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export const Modal = ({ alt, srcModal, onCloseModal }) => {
+const Modal = ({ alt, srcModal, onCloseModal }) => {
   useEffect(() => {
     // console.log('Modal componentDidMount');
     window.addEventListener('keydown', handleKeyDown);
@@ -38,11 +38,13 @@ export const Modal = ({ alt, srcModal, onCloseModal }) => {
   );
 };
 
-Modal.defaultProps = {
-  onCloseModal: () => {},
-};
+// Modal.defaultProps = {
+//   onCloseModal: () => {},
+// };
 Modal.propTypes = {
   alt: PropTypes.string.isRequired,
   srcModal: PropTypes.string.isRequired,
   onCloseModal: PropTypes.func.isRequired,
 };
+
+export default Modal;

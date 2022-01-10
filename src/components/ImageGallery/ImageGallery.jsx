@@ -2,10 +2,10 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Loader from 'react-loader-spinner';
-import Button from 'components/Button';
+import Button from '../Button';
 import Notification from '../Notification';
-import Modal from 'components/Modal';
-import styles from './ImageGallery.module.scss';
+import Modal from '../Modal';
+import styles from './ImageGallery.module.css';
 
 const ImageGallery = ({
   images,
