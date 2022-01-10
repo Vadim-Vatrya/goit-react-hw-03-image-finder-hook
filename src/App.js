@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 import imagesApi from './services/imagesApi';
-import Searchbar from './components/Searchbar';
+import SearchBar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import Loader from './components/Loader';
 
@@ -64,7 +64,7 @@ const App = () => {
 
   return (
     <div className={styles.App}>
-      <Searchbar onSubmitForm={handleSubmit} />
+      <SearchBar onSubmitForm={handleSubmit} />
       {!totalImages && <Loader visible={isLoading} />}
       {totalImages !== null && (
         <ImageGallery
